@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 387656008}
   - component: {fileID: 387656007}
   - component: {fileID: 387656006}
-  - component: {fileID: 387656004}
   - component: {fileID: 387656003}
   m_Layer: 0
   m_Name: Capsule
@@ -162,20 +161,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &387656004
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387656002}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.510157
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.0029177666, z: 0}
 --- !u!114 &387656006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5403,19 +5388,20 @@ MonoBehaviour:
   floorTexture: {fileID: 2800000, guid: 1086a0296d16b144f838e58ee71cdbbb, type: 3}
   paintColor: {r: 0.8490566, g: 0, b: 0, a: 1}
   brushSize: 2
---- !u!65 &1672444132
-BoxCollider:
+--- !u!64 &1672444132
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672444124}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 9.894777, y: 0.84264684, z: 10}
-  m_Center: {x: 0.05261135, y: 0.0038747787, z: 0}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2020594372
 GameObject:
   m_ObjectHideFlags: 0
@@ -5438,7 +5424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &2020594373
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5576,13 +5562,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6328af1547037764aac51bbcab2b726e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cleanTexture: {fileID: 2800000, guid: 1086a0296d16b144f838e58ee71cdbbb, type: 3}
-  dirtyColor:
-    r: 0.38679248
-    g: 0.1255251
-    b: 0.1255251
-    a: 0
-  renderer: {fileID: 0}
-  dirtyTexture: {fileID: 0}
-  lastPosition: {x: 0, y: 0, z: 0}
-  markingDistance: 1

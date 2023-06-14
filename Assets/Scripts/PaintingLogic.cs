@@ -4,35 +4,60 @@ using UnityEngine;
 
 public class PaintingLogic : MonoBehaviour
 {
-    public Transform playerTransform; // Referencia al transform del jugador
-    public Texture2D floorTexture; // Referencia a la textura del suelo
-    public Color paintColor = Color.red; // El color con el que pintaremos
-    public int brushSize = 2; // Tamaño del "pincel"
+    public Transform playerTransform;
+    public Texture2D floorTexture;
+    public Color paintColor = Color.red;
+    public int brushSize = 2;
+
+    private Texture2D paintedTexture; // Textura pintada en formato RGBA32
 
     private void Start()
     {
-        // Obtiene la textura del plano en el start y la convierte a Texture2D.
+        // Copiar la textura original en formato RGBA32
+        paintedTexture = new Texture2D(floorTexture.width, floorTexture.height, TextureFormat.RGBA32, false);
+        paintedTexture.SetPixels(floorTexture.GetPixels());
+        paintedTexture.Apply();
+
+        // Asignar la textura pintada al material del objeto
         Renderer renderer = GetComponent<Renderer>();
-        Texture2D textureCopy = new Texture2D(floorTexture.width, floorTexture.height, floorTexture.format, false);
-        Graphics.CopyTexture(floorTexture, textureCopy);
-        renderer.material.mainTexture = textureCopy;
-        floorTexture = textureCopy;
+        renderer.material.mainTexture = paintedTexture;
     }
 
     private void Update()
     {
-        Vector3 playerPosRelativeToFloor = playerTransform.position - transform.position;
-        // Pasar de posición del mundo a posición de textura
-        int texturePosX = Mathf.FloorToInt((playerPosRelativeToFloor.x / transform.localScale.x + 0.5f) * floorTexture.width);
-        int texturePosY = Mathf.FloorToInt((playerPosRelativeToFloor.z / transform.localScale.z + 0.5f) * floorTexture.height);
-        // Pintar los píxeles
-        for (int i = -brushSize; i <= brushSize; i++)
+        RaycastHit hit;
+        Ray ray = new Ray(playerTransform.position, Vector3.down);
+
+        if (Physics.Raycast(ray, out hit))
         {
-            for (int j = -brushSize; j <= brushSize; j++)
+            Renderer renderer = hit.transform.GetComponent<Renderer>();
+
+            if (renderer != null && renderer.material.mainTexture == paintedTexture)
             {
-                floorTexture.SetPixel(texturePosX + i, texturePosY + j, paintColor);
+                // Obtener las coordenadas de textura del impacto del rayo
+                Vector2 textureCoord = hit.textureCoord;
+
+                // Calcular las coordenadas de pÃ­xeles en la textura
+                int texturePixelX = Mathf.FloorToInt(textureCoord.x * paintedTexture.width);
+                int texturePixelY = Mathf.FloorToInt(textureCoord.y * paintedTexture.height);
+
+                // Pintar los pÃ­xeles
+                for (int i = -brushSize; i <= brushSize; i++)
+                {
+                    for (int j = -brushSize; j <= brushSize; j++)
+                    {
+                        // Calcular el Ã­ndice del pÃ­xel en el array de colores de la textura
+                        int pixelIndex = (texturePixelY + j) * paintedTexture.width + (texturePixelX + i);
+
+                        // Asignar el nuevo color al pÃ­xel en la textura
+                        paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, paintColor);
+                    }
+                }
+
+                // Aplicar los cambios a la textura
+                paintedTexture.Apply();
             }
         }
-        floorTexture.Apply();
     }
 }
+
