@@ -9,12 +9,23 @@ public class EnemyMessState : EnemyBaseState
     { 
         
     }
+
+    public override void OnCollisionEnter(EnemyStateManager enemy, Collision collision)
+    {
+        
+    }
+
+    public override void OnTriggerEnter(EnemyStateManager enemy, Collider collision)
+    {
+        
+    }
+
     public override void UpdateState(EnemyStateManager enemy)
     {
 
     }
-    public override void OnCollisionEnter(EnemyStateManager enemy)
-    {
+    //public override void OnCollisionEnter(EnemyStateManager enemy)
+    //{
 
-    }
+    //}
 }
