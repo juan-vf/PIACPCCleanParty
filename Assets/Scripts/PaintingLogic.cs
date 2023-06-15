@@ -8,11 +8,14 @@ public class PaintingLogic : MonoBehaviour
     public Texture2D floorTexture;
     public Color paintColor = Color.red;
     public int brushSize = 2;
+    private int brushNormalSize;
 
     private Texture2D paintedTexture; // Textura pintada en formato RGBA32
 
     private void Start()
     {
+        brushSize = 8;
+        brushNormalSize = brushSize;
         // Copiar la textura original en formato RGBA32
         paintedTexture = new Texture2D(floorTexture.width, floorTexture.height, TextureFormat.RGBA32, false);
         paintedTexture.SetPixels(floorTexture.GetPixels());
@@ -21,6 +24,11 @@ public class PaintingLogic : MonoBehaviour
         // Asignar la textura pintada al material del objeto
         Renderer renderer = GetComponent<Renderer>();
         renderer.material.mainTexture = paintedTexture;
+
+        FluffEventsManager.Instance.OnEnhanced += EnhacedChanges;
+        FluffEventsManager.Instance.OnNormal += BrushReset;
+
+
     }
 
     private void Update()
@@ -58,7 +66,17 @@ public class PaintingLogic : MonoBehaviour
                 paintedTexture.Apply();
             }
         }
+     
         floorTexture.Apply();
+    }
+
+    private void EnhacedChanges()
+    {
+        brushSize = brushNormalSize + 4;
+    }
+    private void BrushReset()
+    {
+        brushSize = brushNormalSize;
     }
 }
 

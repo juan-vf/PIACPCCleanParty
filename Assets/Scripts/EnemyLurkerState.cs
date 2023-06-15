@@ -40,7 +40,10 @@ public class EnemyLurkerState : EnemyBaseState
     {
         if (collision.transform.CompareTag("PowerUp"))
         {
+            
+            Object.Destroy(collision.gameObject);
             enemy.switchState(enemy.enhancedState);
         }
     }
+
 }

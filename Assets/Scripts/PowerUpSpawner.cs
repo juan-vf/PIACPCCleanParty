@@ -38,12 +38,23 @@ public class PowerUpSpawner : MonoBehaviour
             // Desactiva todos los power-ups
             foreach (GameObject powerUp in powerUps)
             {
-                powerUp.SetActive(false);
+                if (powerUp != null)
+                {
+                    powerUp.SetActive(false);
+                }
             }
 
             // Activa un power-up aleatorio
-            int randomIndex = Random.Range(0, powerUps.Count);
-            powerUps[randomIndex].SetActive(true);
+            if (powerUps != null)
+            {
+
+                int randomIndex = Random.Range(0, powerUps.Count);
+                if (powerUps[randomIndex] != null)
+                { 
+                    powerUps[randomIndex].SetActive(true);
+               
+                }
+            }
         }
     }
 }

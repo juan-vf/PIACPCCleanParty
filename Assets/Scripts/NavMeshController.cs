@@ -8,12 +8,18 @@ public class NavMeshController : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private int nextPoint;
     private EnemyStateManager enemyStateManager;
+    private float normalSPeed;
 
     void Start()
     {
+
         enemyStateManager = GetComponent<EnemyStateManager>(); 
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = 8f;
+        normalSPeed = navMeshAgent.speed;
         updateTargetPoint(enemyStateManager.WayPoints[0].position);
+        FluffEventsManager.Instance.OnEnhanced += SpeedChanges;
+        FluffEventsManager.Instance.OnNormal += NormalSpeed;
     }
         
     // Update is called once per frame
@@ -44,5 +50,14 @@ public class NavMeshController : MonoBehaviour
        
     
         return navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && !navMeshAgent.pathPending; 
+    }
+
+    private void SpeedChanges()
+    {
+        navMeshAgent.speed = normalSPeed*1.5f;
+    }
+    private void NormalSpeed()
+    {
+        navMeshAgent.speed = normalSPeed;
     }
 }
