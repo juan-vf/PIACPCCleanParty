@@ -5,17 +5,23 @@ public class VCDefaultState : VCBaseState
 {
     public override void Enter(VCSM vCSM)
     {
-        // throw new System.NotImplementedException();
         Debug.Log("Default State");
+        UIEventsManager.UIEventSys.BatteryUI(3);
+        
     }
     public override void Update(VCSM vCSM)
     {
-        if(vCSM.getVCC.getBattery <= 75){
-            //SI EL PORCENTAJE DE LA BATERIA ES MENOR A 75%
-            Debug.Log($"bateria BAJA");
-            BatteryEventSystem.m_BES.BatteryLow();
+        if(vCSM.getFuzzyM.LowBattery){
+            vCSM.ChangeState(vCSM.getLBS);
+        }else if(vCSM.getFuzzyM.DecomposedState){
+            vCSM.ChangeState(vCSM.getDS);
+        }else if(vCSM.getFuzzyM.HalfBattery){
+            UIEventsManager.UIEventSys.BatteryUI(2);
         }
-        // throw new System.NotImplementedException();
+
+        if(vCSM.getVCC.getInputs.IsCleaningKeyPressed){
+            BatteryEventSystem.m_BES.Cleaning();
+        }
     }
     public override void Exit(VCSM vCSM)
     {
@@ -23,7 +29,9 @@ public class VCDefaultState : VCBaseState
     }
     public override void OnCollisionEnter(VCSM vCSM, Collision collision)
     {
-        throw new System.NotImplementedException();
+        if(collision.transform.CompareTag("Enemy")){
+            BatteryEventSystem.m_BES.TakingDamage();
+        }
     }
     public override void OnCollisionExit(VCSM vCSM, Collision collision)
     {

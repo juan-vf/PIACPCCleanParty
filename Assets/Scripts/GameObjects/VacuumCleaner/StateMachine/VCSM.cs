@@ -8,13 +8,17 @@ public class VCSM : MonoBehaviour
     private VCBaseState m_InitialState;
     private VCBaseState DefaultState = new VCDefaultState();
     private VCBaseState LowBatteryS = new LowBatteryState();
+    private VCBaseState DecomposedState = new DecomposedState();
     private VCController vCController;
+    private VCFuzzyManager vCFuzzyManager;
     void Start()
     {
         vCController = GetComponent<VCController>();
+        vCFuzzyManager = GetComponent<VCFuzzyManager>();
         //ESCUCHAS DE EVENTOS
         //SE LE ASIGNA AL EVENTO, UNA FUNCION PARA QUE EJECUTE AL ESCUCHAR EL EVENTO 
         BatteryEventSystem.m_BES.OnBatteryLow += InitLowBatteryS;
+        BatteryEventSystem.m_BES.OnDecomposed += InitDecomposedS;
         m_ActualState = DefaultState;
         m_ActualState.Enter(this);
     }
@@ -49,7 +53,20 @@ public class VCSM : MonoBehaviour
     private void InitLowBatteryS(){
         ChangeState(LowBatteryS);
     }
+    private void InitDecomposedS(){
+        /*FALTA EL ESTADO DESCOMPUESTOOOO*/
+        ChangeState(null);
+    }
     public VCController getVCC{
         get{return vCController;}
+    }
+    public VCFuzzyManager getFuzzyM{
+        get{return vCFuzzyManager;}
+    }
+    public VCBaseState getLBS{
+        get{return LowBatteryS;}
+    }
+    public VCBaseState getDS{
+        get{return DecomposedState;}
     }
 }

@@ -14,10 +14,14 @@ public class BatteryEventSystem : MonoBehaviour
     public event Action OnChargerTriggerEnter;
     //EVENTO PARA QUE LA BATERIA CAMBIE A BATERIA BAJA
     public event Action OnBatteryLow;
+    //EVENTO PARA QUE CAMBIE A ESTADO DESCOMPUESTO
+    public event Action OnDecomposed;
     //EVENTO PARA QUE EL JUGADOR BAJE LA VELOCIDAD
     public event Action OnSlowDown;
     //EVENTO PARA QUE EL JUGADOR...
+    public event Action OnCleaning;
 
+    public event Action OnTakingDamage;
     public void ChargerTriggerEnter(){
         if(OnChargerTriggerEnter != null){
             OnChargerTriggerEnter();
@@ -33,4 +37,20 @@ public class BatteryEventSystem : MonoBehaviour
             OnSlowDown();
         }
     }
+    public void Decomposed(){
+        if(OnDecomposed != null){
+            OnDecomposed();
+        }
+    }
+    public void Cleaning(){
+        if(OnCleaning != null){
+            OnCleaning();
+        }
+    }
+    public void TakingDamage(){
+        if(OnTakingDamage != null){
+            OnTakingDamage();
+        }
+    }
+
 }
