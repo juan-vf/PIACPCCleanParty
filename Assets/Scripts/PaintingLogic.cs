@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PaintingLogic : MonoBehaviour
 {
+    public int paintedPixelCount = 0;
     public Transform playerTransform;
     public Texture2D floorTexture;
     public Color paintColor = Color.red;
@@ -27,6 +28,8 @@ public class PaintingLogic : MonoBehaviour
 
         FluffEventsManager.Instance.OnEnhanced += EnhacedChanges;
         FluffEventsManager.Instance.OnNormal += BrushReset;
+        FluffEventsManager.Instance.OnEscape += NoBrush;
+
 
 
     }
@@ -49,21 +52,41 @@ public class PaintingLogic : MonoBehaviour
                 int texturePixelX = Mathf.FloorToInt(textureCoord.x * paintedTexture.width);
                 int texturePixelY = Mathf.FloorToInt(textureCoord.y * paintedTexture.height);
 
-                // Pintar los píxeles
+                //Pintar los píxeles
+                //for (int i = -brushSize; i <= brushSize; i++)
+                //{
+                //    for (int j = -brushSize; j <= brushSize; j++)
+                //    {
+                //        Calcular el índice del píxel en el array de colores de la textura
+                //        int pixelIndex = (texturePixelY + j) * paintedTexture.width + (texturePixelX + i);
+
+                //        Asignar el nuevo color al píxel en la textura
+                //        paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, paintColor);
+                //    }
+                //}
+
+                //Aplicar los cambios a la textura
+                //paintedTexture.Apply();
                 for (int i = -brushSize; i <= brushSize; i++)
                 {
                     for (int j = -brushSize; j <= brushSize; j++)
                     {
-                        // Calcular el índice del píxel en el array de colores de la textura
                         int pixelIndex = (texturePixelY + j) * paintedTexture.width + (texturePixelX + i);
 
-                        // Asignar el nuevo color al píxel en la textura
-                        paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, paintColor);
+                        // Asegúrate de que el pixel aún no está pintado para no contar repetidos
+                        Color currentPixelColor = paintedTexture.GetPixel(texturePixelX + i, texturePixelY + j);
+                        if (currentPixelColor != paintColor)
+                        {
+                            paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, paintColor);
+                            paintedPixelCount++;
+                            //Debug.Log("PIXELES CONTADOR" + paintedPixelCount);
+                        }
                     }
                 }
 
-                // Aplicar los cambios a la textura
                 paintedTexture.Apply();
+
+
             }
         }
      
@@ -77,6 +100,11 @@ public class PaintingLogic : MonoBehaviour
     private void BrushReset()
     {
         brushSize = brushNormalSize;
+    }
+    private void NoBrush()
+    { 
+        brushSize = 0; 
+    
     }
 }
 

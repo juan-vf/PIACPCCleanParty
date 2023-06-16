@@ -9,7 +9,9 @@ public class EnemyEscapeState : EnemyBaseState
     private const float escapeDuration = 5.0f;
     public override void EnterState(EnemyStateManager enemy)
     {
-        Debug.Log("ESTADO ESCAPE");
+        FluffEventsManager.Instance.Escape();
+        Debug.Log("ESCAPE");
+
         Vector3 escapeDirection = enemy.transform.position - enemy.player.transform.position;
         Vector3 escapePoint = enemy.transform.position + escapeDirection.normalized * 15f;
         

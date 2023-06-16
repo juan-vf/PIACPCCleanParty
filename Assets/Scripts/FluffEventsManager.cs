@@ -13,6 +13,7 @@ public class FluffEventsManager : MonoBehaviour
     }
     public event Action OnEnhanced;
     public event Action OnNormal;
+    public event Action OnEscape;
     public void Enhanced()
     { 
         if (OnEnhanced != null) 
@@ -29,6 +30,15 @@ public class FluffEventsManager : MonoBehaviour
         
         }
     }
+    public void Escape()
+    {
+    if(OnEscape != null)
+        {
+            OnEscape();
+        }
+        
+    }
+
 
 
 }

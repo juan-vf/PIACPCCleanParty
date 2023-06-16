@@ -12,29 +12,25 @@ public class EnemyLurkerState : EnemyBaseState
     public override void EnterState(EnemyStateManager enemy)
     {
         Debug.Log("Enter State from LurkerState");
+        FluffEventsManager.Instance.Normal();
+
     }
     public override void UpdateState(EnemyStateManager enemy)
     {
-        //if (enemy.navMeshController.weHaveArrived())
-        //{
-        //    nextPoint = (nextPoint + 1) % enemy.WayPoints.Length;
-        //    updateWayPoint(enemy);
-        //}
+   
     }
     public override void OnTriggerEnter(EnemyStateManager enemy, Collider collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
+            Debug.Log("TENGO QUE PASAR A ESCAPE");
+
             enemy.switchState(enemy.escapeState);
         }
 
     }
 
 
-    //void updateWayPoint(EnemyStateManager enemy)
-    //{
-    //    enemy.navMeshController.updateTargetPoint(enemy.WayPoints[nextPoint].position);
-    //}
 
     public override void OnCollisionEnter(EnemyStateManager enemy, Collision collision)
     {

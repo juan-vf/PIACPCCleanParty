@@ -20,6 +20,7 @@ public class NavMeshController : MonoBehaviour
         updateTargetPoint(enemyStateManager.WayPoints[0].position);
         FluffEventsManager.Instance.OnEnhanced += SpeedChanges;
         FluffEventsManager.Instance.OnNormal += NormalSpeed;
+        FluffEventsManager.Instance.OnEscape += SpeedChanges;
     }
         
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class NavMeshController : MonoBehaviour
     {
         navMeshAgent.destination = targetPoint;
         navMeshAgent.isStopped = false;
-        Debug.Log(navMeshAgent.destination);
+        //Debug.Log(navMeshAgent.destination);
     }
 
     public void StopNavMeshAgent()
@@ -60,4 +61,5 @@ public class NavMeshController : MonoBehaviour
     {
         navMeshAgent.speed = normalSPeed;
     }
+ 
 }
