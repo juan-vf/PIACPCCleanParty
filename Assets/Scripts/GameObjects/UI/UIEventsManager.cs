@@ -14,6 +14,7 @@ public class UIEventsManager : MonoBehaviour
     public event Action<float> OnStorageUI;
 
     public event Action<int> OnBatteryUI;
+    public event Action OnLevelScore;
 
     public void StorageUI(float value){
         if(OnStorageUI != null){
@@ -23,6 +24,11 @@ public class UIEventsManager : MonoBehaviour
     public void BatteryUI(int spriteId){
         if(OnBatteryUI != null){
             OnBatteryUI(spriteId);
+        }
+    }
+    public void LevelScore(){
+        if(OnLevelScore != null){
+            OnLevelScore();
         }
     }
 }

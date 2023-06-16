@@ -9,11 +9,12 @@ public class VCController : MonoBehaviour
     [SerializeField]private float m_MoveForce = 100f;
     [SerializeField]private float m_StopForce = 50f;
     public float m_Battery = 100;
-    private float m_BatteryTimeOfLive = 60f;
+    private float m_BatteryTimeOfLive = 5f;
     private float m_BatteryTimeLive = 0;
-    private float m_StorageBase = 100f;
-    private float m_StorageActual = 100f;
+    // private float m_StorageBase = 100f;
+    private int m_StorageActual = 0;
     private bool crashed = false;
+    private bool working = false;
 
     //CREA LAS CLASES NECESARIAS
     private Storage m_storage = new Storage();
@@ -21,22 +22,22 @@ public class VCController : MonoBehaviour
     {
         PIController = GetComponent<PlayerInputController>();
         m_RB = GetComponent<Rigidbody>();
-
         //ESCUCHAS DE EVENTOS
         BatteryEventSystem.m_BES.OnSlowDown += SlowSpeed;
         BatteryEventSystem.m_BES.OnDecomposed += ChashVC;
         BatteryEventSystem.m_BES.OnTakingDamage += DamageTheBattery;
-        // UIEventsManager.UIEventSys.OnStorageUI += UpdateStorageUI;
-        // Debug.Log(m_storage.getSPercentage);
+        BatteryEventSystem.m_BES.OnChargerTriggerEnter += ChargeBattery;
+        BatteryEventSystem.m_BES.OnCleaningPixels += UpdatePixelsPainted;
     }
     void Update()
     {
         m_BatteryTimeLive += Time.deltaTime;
         //DESCUENTA EL PORCENTAJE POR EL TIEMPO QUE PASA, DURA 240SEGUNDOS/4MINS
-        m_Battery -= (Time.deltaTime * 100)/m_BatteryTimeOfLive;
-        // m_storage.FillStorage();
-        UpdateStorageUI();
+        if(working){
+            m_Battery -= (Time.deltaTime * 100)/m_BatteryTimeOfLive;
+        }
 
+        UpdateStorageUI();
     }
     private void FixedUpdate()
     {
@@ -59,13 +60,17 @@ public class VCController : MonoBehaviour
         get{return m_storage.getSPercentage;}
         // set{m_BatteryTimeLive = value;}
     }
+    public Storage getStorageClass{ 
+        get{return m_storage;}
+        // set{m_BatteryTimeLive = value;}
+    }
     public PlayerInputController getInputs{get{return PIController;}}
     private void SlowSpeed(){
         m_MoveForce *= 0.5f;
         // Debug.Log(m_MoveForce);
     }
-    private void ChargeBattery(){
-        //carga la bateria
+    public void ChargeBattery(){
+        m_Battery += 5f;
     }
     private void UpdateStorageUI()
     {
@@ -81,5 +86,15 @@ public class VCController : MonoBehaviour
     private void DamageTheBattery(){
         m_Battery -= m_Battery * 0.3f;
     }
+    public void IsWorking(bool value){
+        working = value;
+        Debug.Log("TRABAJANDO?"+value);
+    }
+
+    public void UpdatePixelsPainted(int value){
+        m_StorageActual = value;
+        m_storage.FillStorage(value);
+    }
+    public int getStorageActual{get{return m_StorageActual;}}
 
 }

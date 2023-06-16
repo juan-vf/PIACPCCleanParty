@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CleanLogic : MonoBehaviour
 {
+    private int paintedPixelCount = 0;
     public Transform playerTransform;
     public Texture2D floorTexture;
     public Color paintColor = Color.white;
@@ -12,7 +13,7 @@ public class CleanLogic : MonoBehaviour
     private Texture2D paintedTexture; // Textura pintada en formato RGBA32
     private ColorAnalizer colorAnalizer = new ColorAnalizer();
     private float time = 0f;
-    private float PixelCountPainted = 0f;
+    private int PixelCountPaintedForStorage = 0;
     private bool Clean = false;
     private bool Dirt = false;
 
@@ -31,7 +32,7 @@ public class CleanLogic : MonoBehaviour
 
         BatteryEventSystem.m_BES.OnBatteryLow += LowBrushSize;
         BatteryEventSystem.m_BES.OnCleaning += Cleaning;
-        BatteryEventSystem.m_BES.OnDecomposed += ()=>{Clean = false;};
+        BatteryEventSystem.m_BES.OnDecomposed += () => { Clean = false; };
     }
     private void Update()
     {
@@ -50,34 +51,59 @@ public class CleanLogic : MonoBehaviour
                     int texturePixelX = Mathf.FloorToInt(textureCoord.x * paintedTexture.width);
                     int texturePixelY = Mathf.FloorToInt(textureCoord.y * paintedTexture.height);
                     // Pintar los píxeles
+
+                    // for (int i = -cleanSize; i <= cleanSize; i++)
+                    // {
+                    //     for (int j = -cleanSize; j <= cleanSize; j++)
+                    //     {
+                    //         // Calcular el índice del píxel en el array de colores de la textura
+                    //         int pixelIndex = (texturePixelY + j) * paintedTexture.width + (texturePixelX + i);
+
+                    //         //Cuantos pixeles va pintando
+                    //         PixelCountPainted++;
+
+                    //         // Asignar el nuevo color al píxel en la textura
+                    //         paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, paintColor);
+                    //     }
+                    // }
                     for (int i = -cleanSize; i <= cleanSize; i++)
                     {
                         for (int j = -cleanSize; j <= cleanSize; j++)
                         {
-                            // Calcular el índice del píxel en el array de colores de la textura
                             int pixelIndex = (texturePixelY + j) * paintedTexture.width + (texturePixelX + i);
 
-                            //Cuantos pixeles va pintando
-                            PixelCountPainted++;
-
-                            // Asignar el nuevo color al píxel en la textura
-                            paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, paintColor);
+                            // Asegúrate de que el pixel aún no está pintado para no contar repetidos
+                            Color currentPixelColor = paintedTexture.GetPixel(texturePixelX + i, texturePixelY + j);
+                            if (currentPixelColor != paintColor)
+                            {
+                                paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, paintColor);
+                                paintedPixelCount++;
+                                PixelCountPaintedForStorage++;
+                                BatteryEventSystem.m_BES.CleaningPixels(paintedPixelCount);
+                                // Debug.Log("PIXELES CONTADOR" + paintedPixelCount);
+                            }
                         }
                     }
-                    // Aplicar los cambios a la textura
+                    // // Aplicar los cambios a la textura
                     paintedTexture.Apply();
                 }
             }
+            PlayerPrefs.SetInt("PlayerScore", paintedPixelCount);
+            PlayerPrefs.Save();
         }
     }
-    private void ResetPixels(){
-        PixelCountPainted = 0;
+    private void ResetPixels()
+    {
+        PixelCountPaintedForStorage = 0;
     }
-    private void Cleaning(){
+    private void Cleaning()
+    {
         Clean = !Clean;
     }
-    private void LowBrushSize(){
+    private void LowBrushSize()
+    {
         cleanSize = cleanSize - 4;
     }
+    private int getPixelsClean{get{return paintedPixelCount;}}
 
 }

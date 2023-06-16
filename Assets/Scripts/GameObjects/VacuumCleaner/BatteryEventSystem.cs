@@ -22,6 +22,9 @@ public class BatteryEventSystem : MonoBehaviour
     public event Action OnCleaning;
 
     public event Action OnTakingDamage;
+    public event Action<int> OnCleaningPixels;
+
+    public event Action<bool> OnWorking;
     public void ChargerTriggerEnter(){
         if(OnChargerTriggerEnter != null){
             OnChargerTriggerEnter();
@@ -52,5 +55,15 @@ public class BatteryEventSystem : MonoBehaviour
             OnTakingDamage();
         }
     }
+    public void Working(bool value){
+        if(OnWorking != null){
+            OnWorking(value);
+        }
+    }
+    public void CleaningPixels(int value){
+        if(OnCleaningPixels != null){
+            OnCleaningPixels(value);
+        }
 
+    }
 }

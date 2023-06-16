@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: -877453341376265745}
   - component: {fileID: -2088727492427112141}
   - component: {fileID: 7529517130395090675}
+  - component: {fileID: 1349685350}
+  - component: {fileID: 1349685349}
   m_Layer: 0
   m_Name: vacuumCleaner
   m_TagString: Untagged
@@ -189,3 +191,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1349685350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4064235140665243978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.38090497, y: 0.07678999, z: 0.3809049}
+  m_Center: {x: 0.000000029802322, y: 0.000000007450581, z: 0}
+--- !u!114 &1349685349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4064235140665243978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4909697515ff38a448fc3ed8969c62a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

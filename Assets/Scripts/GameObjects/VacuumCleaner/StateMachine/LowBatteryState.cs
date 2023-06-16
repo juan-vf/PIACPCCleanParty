@@ -14,6 +14,8 @@ public class LowBatteryState : VCBaseState
         */
         BatteryEventSystem.m_BES.SlowDown();;
         UIEventsManager.UIEventSys.BatteryUI(1);
+        // BatteryEventSystem.m_BES.Working(true);
+        vCSM.getVCC.IsWorking(true);
     }
     public override void Update(VCSM vCSM)
     {
@@ -23,7 +25,6 @@ public class LowBatteryState : VCBaseState
     }
     public override void Exit(VCSM vCSM)
     {
-        throw new System.NotImplementedException();
     }
     public override void OnCollisionEnter(VCSM vCSM, Collision collision)
     {
@@ -33,11 +34,10 @@ public class LowBatteryState : VCBaseState
     }
     public override void OnCollisionExit(VCSM vCSM, Collision collision)
     {
-        throw new System.NotImplementedException();
     }
     public override void OnCollisionStay(VCSM vCSM, Collision collision)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
     public override void OnTriggerEnter(VCSM vCSM, Collision collision)
     {

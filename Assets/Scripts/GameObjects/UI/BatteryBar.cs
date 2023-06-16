@@ -13,7 +13,6 @@ public class BatteryBar : MonoBehaviour
     void Start()
     {
         BatteryImage = GetComponentInChildren<Image>();
-        Debug.Log(BatteryImage);
         UIEventsManager.UIEventSys.OnBatteryUI += ChangeSprite;
     }
     void Update()

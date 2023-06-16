@@ -9,6 +9,7 @@ public class VCSM : MonoBehaviour
     private VCBaseState DefaultState = new VCDefaultState();
     private VCBaseState LowBatteryS = new LowBatteryState();
     private VCBaseState DecomposedState = new DecomposedState();
+    private VCBaseState ChargingState = new ChargingState();
     private VCController vCController;
     private VCFuzzyManager vCFuzzyManager;
     void Start()
@@ -45,6 +46,18 @@ public class VCSM : MonoBehaviour
             m_ActualState.OnCollisionEnter(this, other);
         }
     }
+    private void OnCollisionStay(Collision other)
+    {
+        if(m_ActualState != null){
+            m_ActualState.OnCollisionStay(this, other);
+        }
+    }
+private void OnCollisionExit(Collision other)
+    {
+        if(m_ActualState != null){
+            m_ActualState.OnCollisionExit(this, other);
+        }
+    }
     public void ChangeState(VCBaseState newState)
     {
         m_ActualState = newState;
@@ -55,7 +68,7 @@ public class VCSM : MonoBehaviour
     }
     private void InitDecomposedS(){
         /*FALTA EL ESTADO DESCOMPUESTOOOO*/
-        ChangeState(null);
+        ChangeState(getDS);
     }
     public VCController getVCC{
         get{return vCController;}
@@ -68,5 +81,11 @@ public class VCSM : MonoBehaviour
     }
     public VCBaseState getDS{
         get{return DecomposedState;}
+    }
+    public VCBaseState getChargingS{
+        get{return ChargingState;}
+    }
+    public VCBaseState getDefaultS{
+        get {return DefaultState;}
     }
 }

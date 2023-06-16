@@ -9,17 +9,20 @@ public class DecomposedState : VCBaseState
     {
         Debug.Log("ESTADO DESCOMPUESTO");
         UIEventsManager.UIEventSys.BatteryUI(4);
-        BatteryEventSystem.m_BES.Decomposed();
+        // BatteryEventSystem.m_BES.Decomposed();
+        BatteryEventSystem.m_BES.Working(false);
+
         vCSM.getVCC.getChashed = true;
 
-        //GAME OVER
     }
 
     public override void Update(VCSM vCSM)
     {
         timer += Time.deltaTime;
+        // Debug.Log(timer);
         if(timer >= 2f){
-            //change scene
+            Debug.Log("Cambiaraaaa");
+            UIEventsManager.UIEventSys.LevelScore();
         }
     }
     public override void Exit(VCSM vCSM)

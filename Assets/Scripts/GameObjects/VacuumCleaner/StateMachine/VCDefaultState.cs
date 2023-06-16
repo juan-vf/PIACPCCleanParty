@@ -7,7 +7,8 @@ public class VCDefaultState : VCBaseState
     {
         Debug.Log("Default State");
         UIEventsManager.UIEventSys.BatteryUI(3);
-        
+        // BatteryEventSystem.m_BES.Working(true);
+        vCSM.getVCC.IsWorking(true);
     }
     public override void Update(VCSM vCSM)
     {
@@ -18,6 +19,7 @@ public class VCDefaultState : VCBaseState
         }else if(vCSM.getFuzzyM.HalfBattery){
             UIEventsManager.UIEventSys.BatteryUI(2);
         }
+        
 
         if(vCSM.getVCC.getInputs.IsCleaningKeyPressed){
             BatteryEventSystem.m_BES.Cleaning();
@@ -25,21 +27,23 @@ public class VCDefaultState : VCBaseState
     }
     public override void Exit(VCSM vCSM)
     {
-        throw new System.NotImplementedException();
+        // BatteryEventSystem.m_BES.Working(false);
     }
     public override void OnCollisionEnter(VCSM vCSM, Collision collision)
     {
         if(collision.transform.CompareTag("Enemy")){
             BatteryEventSystem.m_BES.TakingDamage();
         }
+        else if(collision.transform.CompareTag("Charger")){
+            vCSM.ChangeState(vCSM.getChargingS);
+        }
     }
     public override void OnCollisionExit(VCSM vCSM, Collision collision)
     {
-        throw new System.NotImplementedException();
     }
     public override void OnCollisionStay(VCSM vCSM, Collision collision)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
     public override void OnTriggerEnter(VCSM vCSM, Collision collision)
     {
@@ -47,7 +51,6 @@ public class VCDefaultState : VCBaseState
     }
     public override void OnTriggerExit(VCSM vCSM, Collision collision)
     {
-        throw new System.NotImplementedException();
     }
     public override void OnTriggerStay(VCSM vCSM, Collision collision)
     {
