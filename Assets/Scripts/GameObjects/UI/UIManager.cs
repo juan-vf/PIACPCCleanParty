@@ -19,21 +19,6 @@ public class UIManager : MonoBehaviour
         PScore = PScoreObject.GetComponent<TextMeshProUGUI>();
         EScore = EScoreObject.GetComponent<TextMeshProUGUI>();
         UIEventsManager.UIEventSys.OnStats += UpdateUi;
-
-        // if (Victory != null)
-        // {
-        //     if()
-        // }
-        // if (PScore != null)
-        // {
-        //     PScore.text = PScore.ToString();
-        // }
-        // if (EScore != null)
-        // {
-        //     EScore.text = EScore.ToString();
-        // }
-
-
     }
 
     // Update is called once per frame
@@ -44,6 +29,6 @@ public class UIManager : MonoBehaviour
     public void UpdateUi(int enemy, int player){
         PScore.text = enemy.ToString();
         EScore.text = player.ToString();
-        Victory.text = (player > enemy) ? "Gano PELUSA" : "Gano la PELUSA";
+        Victory.text = (player > enemy) ? "Gano ASPIRADORA" : "Gano la PELUSA";
     }
 }

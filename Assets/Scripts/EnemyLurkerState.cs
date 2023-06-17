@@ -11,7 +11,7 @@ public class EnemyLurkerState : EnemyBaseState
 
     public override void EnterState(EnemyStateManager enemy)
     {
-        Debug.Log("Enter State from LurkerState");
+        // Debug.Log("Enter State from LurkerState");
         FluffEventsManager.Instance.Normal();
 
     }
@@ -26,12 +26,10 @@ public class EnemyLurkerState : EnemyBaseState
             Debug.Log("TENGO QUE PASAR A ESCAPE");
 
             enemy.switchState(enemy.escapeState);
+            Debug.Log("NO PASED");
         }
 
     }
-
-
-
     public override void OnCollisionEnter(EnemyStateManager enemy, Collision collision)
     {
         if (collision.transform.CompareTag("PowerUp"))

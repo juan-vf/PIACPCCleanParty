@@ -12,7 +12,6 @@ public class NavMeshController : MonoBehaviour
 
     void Start()
     {
-
         enemyStateManager = GetComponent<EnemyStateManager>(); 
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = 8f;
@@ -22,11 +21,9 @@ public class NavMeshController : MonoBehaviour
         FluffEventsManager.Instance.OnNormal += NormalSpeed;
         FluffEventsManager.Instance.OnEscape += SpeedChanges;
     }
-        
     // Update is called once per frame
     void Update()
     {
-
         if (weHaveArrived())
         {
             nextPoint = (nextPoint + 1) % enemyStateManager.WayPoints.Length;

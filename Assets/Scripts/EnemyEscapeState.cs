@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyEscapeState : EnemyBaseState
 {
     private float escapeTimer;
-    private const float escapeDuration = 5.0f;
+    private const float escapeDuration = 6f;
     public override void EnterState(EnemyStateManager enemy)
     {
         FluffEventsManager.Instance.Escape();

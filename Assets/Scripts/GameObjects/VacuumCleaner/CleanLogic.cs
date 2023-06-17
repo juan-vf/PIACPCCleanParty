@@ -39,7 +39,7 @@ public class CleanLogic : MonoBehaviour
         cleanSize = 8;
         CleanColor = Color.blue;
         DirtColor = Color.red;
-        brushSize = 3;
+        brushSize = 8;
         brushNormalSize = brushSize;
         BatteryEventSystem.m_BES.OnBatteryLow += LowBrushSize;
         BatteryEventSystem.m_BES.OnCleaning += Cleaning;
@@ -85,6 +85,7 @@ public class CleanLogic : MonoBehaviour
                                 PixelCountPaintedForStorage++;
                                 //CONTADOR ASPIRADORA AZUL
                                 BatteryEventSystem.m_BES.CleaningPixels(ClearPixelCount);
+                                Debug.Log("Aspiradora"+ClearPixelCount);
                             }
                         }
                     }
@@ -123,6 +124,7 @@ public class CleanLogic : MonoBehaviour
                             {
                                 paintedTexture.SetPixel(texturePixelX + i, texturePixelY + j, DirtColor);
                                 DirtPixelCount++;
+                                Debug.Log("Enemy"+DirtPixelCount);
                                 //CONTADOR ASPIRADORA AZUL
                             }
                         }

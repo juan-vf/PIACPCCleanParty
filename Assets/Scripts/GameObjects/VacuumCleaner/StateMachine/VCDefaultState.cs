@@ -5,7 +5,6 @@ public class VCDefaultState : VCBaseState
 {
     public override void Enter(VCSM vCSM)
     {
-        Debug.Log("Default State");
         UIEventsManager.UIEventSys.BatteryUI(3);
         // BatteryEventSystem.m_BES.Working(true);
         vCSM.getVCC.IsWorking(true);
