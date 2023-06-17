@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class UISceneManager : MonoBehaviour
 {
+    private int ScoreP;
+    private int ScoreE;
     private void Start()
     {
-        UIEventsManager.UIEventSys.OnLevelScore += LevelScoreChange;
-        if(PlayerPrefs.HasKey("PlayerScore")){
-            Debug.Log(PlayerPrefs.GetInt("PlayerScore"));
+
+        if(UIEventsManager.UIEventSys != null){UIEventsManager.UIEventSys.OnLevelScore += LevelScoreChange;}
+        if(PlayerPrefs.HasKey("PlayerScore") && PlayerPrefs.HasKey("EnemyScore")){
+            ScoreP = PlayerPrefs.GetInt("PlayerScore");
+            ScoreE = PlayerPrefs.GetInt("EnemyScore");
+            if(UIEventsManager.UIEventSys != null){UIEventsManager.UIEventSys.Stats(ScoreE, ScoreP);}
+
         }
     }
     public void SceneLoader(int SceneIndex){

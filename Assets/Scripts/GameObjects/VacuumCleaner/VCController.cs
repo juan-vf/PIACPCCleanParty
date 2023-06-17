@@ -9,7 +9,7 @@ public class VCController : MonoBehaviour
     [SerializeField]private float m_MoveForce = 100f;
     [SerializeField]private float m_StopForce = 50f;
     public float m_Battery = 100;
-    private float m_BatteryTimeOfLive = 5f;
+    private float m_BatteryTimeOfLive = 60f;
     private float m_BatteryTimeLive = 0;
     // private float m_StorageBase = 100f;
     private int m_StorageActual = 0;
@@ -48,6 +48,7 @@ public class VCController : MonoBehaviour
     private void Move(){
         if(PIController.IsMoving){
             m_RB.AddForce(new Vector3(PIController.getInputMove.x, 0f, PIController.getInputMove.y) * m_MoveForce);
+            // transform.position = (new Vector3(PIController.getInputMove.x, 0f, PIController.getInputMove.y) * m_MoveForce);
         }
         Vector3 stopVector = -m_RB.velocity * m_StopForce;
         m_RB.AddForce(stopVector, ForceMode.Force);
@@ -88,7 +89,7 @@ public class VCController : MonoBehaviour
     }
     public void IsWorking(bool value){
         working = value;
-        Debug.Log("TRABAJANDO?"+value);
+        // Debug.Log("TRABAJANDO?"+value);
     }
 
     public void UpdatePixelsPainted(int value){

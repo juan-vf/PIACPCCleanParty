@@ -14,11 +14,11 @@ public class FluffEventsManager : MonoBehaviour
     public event Action OnEnhanced;
     public event Action OnNormal;
     public event Action OnEscape;
+    public event Action OnDirtying;
     public void Enhanced()
     { 
         if (OnEnhanced != null) 
         { 
-        
             OnEnhanced();
         }
     }
@@ -27,7 +27,6 @@ public class FluffEventsManager : MonoBehaviour
         if(OnNormal != null)
         { 
             OnNormal();
-        
         }
     }
     public void Escape()
@@ -36,9 +35,13 @@ public class FluffEventsManager : MonoBehaviour
         {
             OnEscape();
         }
-        
     }
 
+    public void Dirtying(){
+        if(OnDirtying != null){
+            OnDirtying();
+        }
+    }
 
 
 }

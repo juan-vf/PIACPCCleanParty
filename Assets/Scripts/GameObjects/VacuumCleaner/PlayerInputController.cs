@@ -24,7 +24,7 @@ public class PlayerInputController : MonoBehaviour
     private void OnCleanKeyPressed(InputAction.CallbackContext context)
     {
         isCleaningKeyPressed = !isCleaningKeyPressed;
-        Debug.Log("Para limpiar" + isCleaningKeyPressed);
+        // Debug.Log("Para limpiar" + isCleaningKeyPressed);
     }
     public Vector2 getInputMove{get{return m_input;}}
     public bool IsMoving{get{return m_Moving;}}

@@ -23,6 +23,7 @@ public class EnemyStateManager : MonoBehaviour
         navMeshController = GetComponent<NavMeshController>();
         currentState = lurkerState;
         currentState.EnterState(this);
+        FluffEventsManager.Instance.Dirtying();
         
     }
 
